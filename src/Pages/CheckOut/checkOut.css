@@ -1,0 +1,10 @@
+.checkOut__banner::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  background: linear-gradient(90deg, #000000 0%, rgba(0, 0, 0, 0.075) 100%);
+  border-radius: 12px;
+}
