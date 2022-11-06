@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import { useLoaderData } from "react-router-dom";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import "./checkOut.css";
@@ -33,7 +32,7 @@ const CheckOut = () => {
       zip_code,
     };
 
-    fetch("http://localhost:5000/orders", {
+    fetch("https://genius-car-server008.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

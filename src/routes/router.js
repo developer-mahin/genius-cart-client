@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom';
 import Main from '../Layout/Main';
 import CheckOut from '../Pages/CheckOut/CheckOut';
 import Home from '../Pages/Home/Home/Home';
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
                 path: "/checkout/:id",
                 element: <PrivateRouter><CheckOut></CheckOut></PrivateRouter>,
                 loader: ({ params }) => {
-                    return fetch(`http://localhost:5000/services/${params.id}`)
+                    return fetch(`https://genius-car-server008.vercel.app/services/${params.id}`)
                 }
             },
             {

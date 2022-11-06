@@ -1,7 +1,4 @@
-import React from "react";
-import { useContext } from "react";
-import { useState } from "react";
-import { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { FaWindowClose } from "react-icons/fa";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
@@ -12,7 +9,7 @@ const OrderTable = ({ order, handleDelete, handleUpdateApproval }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/services/${service}`)
+    fetch(`https://genius-car-server008.vercel.app/services/${service}`)
       .then((res) => res.json())
       .then((data) => {
         setServiceProduct(data.data);

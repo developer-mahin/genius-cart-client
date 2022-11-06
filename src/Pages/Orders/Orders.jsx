@@ -1,30 +1,38 @@
-import React, { useContext, useState } from "react";
-import { useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import OrderTable from "./OrderTable";
 
 const Orders = () => {
-  const { user } = useContext(AuthContext);
+  const { user, userLogOut } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+    fetch(`https://genius-car-server008.vercel.app/orders?email=${user?.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
       },
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (res.status === 401 || res.status === 403) {
+          userLogOut()
+            .then(() => {})
+            .catch((err) => {
+              console.error(err);
+            });
+        }
+        res.json();
+      })
       .then((data) => {
         setOrders(data.data);
       });
-  }, [user?.email]);
+  }, [user?.email, userLogOut]);
 
   console.log(orders);
 
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure to delete the product");
     if (proceed) {
-      fetch(`http://localhost:5000/orders/${id}`, {
+      fetch(`https://genius-car-server008.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -38,7 +46,7 @@ const Orders = () => {
   };
 
   const handleUpdateApproval = (id) => {
-    fetch(`http://localhost:5000/orders/${id}`, {
+    fetch(`https://genius-car-server008.vercel.app/orders/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

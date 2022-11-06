@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import loginImg from "../../assets/images/login/login.svg";
-import facebook from "../../assets/icons/social/facebook.png";
-import linkedin from "../../assets/icons/social/linkedin.png";
-import google from "../../assets/icons/social/google.png";
-import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import toast from "react-hot-toast";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import facebook from "../../assets/icons/social/facebook.png";
+import google from "../../assets/icons/social/google.png";
+import linkedin from "../../assets/icons/social/linkedin.png";
+import loginImg from "../../assets/images/login/login.svg";
+import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 
 const Login = () => {
   const { signInWithGoogle, userLogin } = useContext(AuthContext);
@@ -27,7 +27,7 @@ const Login = () => {
           email: user.email,
         };
 
-        fetch("http://localhost:5000/jwt", {
+        fetch("https://genius-car-server008.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
