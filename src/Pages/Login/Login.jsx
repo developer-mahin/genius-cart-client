@@ -36,8 +36,7 @@ const Login = () => {
         })
           .then((res) => res.json())
           .then((data) => {
-            console.log(data);
-            localStorage.setItem("jsonWebToken", data.token);
+            localStorage.setItem("jsonToken", data.token);
             navigate(from, { replace: true });
             toast.success("Successfully login");
             form.reset();

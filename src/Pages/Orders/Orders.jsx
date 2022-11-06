@@ -4,28 +4,20 @@ import { AuthContext } from "../../context/AuthProvider/AuthProvider";
 import OrderTable from "./OrderTable";
 
 const Orders = () => {
-  const { user, userLogOut } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:5000/orders?email=${user?.email}`, {
       headers: {
-        authorization: `Bearer ${localStorage.getItem("jsonWebToken")}`,
+        authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
       },
     })
-      .then((res) => {
-        if (res.status === 401 || res.status === 403) {
-          userLogOut()
-            .then(() => {})
-            .catch((err) => console.log(err));
-        }
-
-        return res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         setOrders(data.data);
       });
-  }, [user?.email, userLogOut]);
+  }, [user?.email]);
 
   console.log(orders);
 
