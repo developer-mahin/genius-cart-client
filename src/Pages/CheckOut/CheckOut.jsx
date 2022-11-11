@@ -5,6 +5,9 @@ import "./checkOut.css";
 
 const CheckOut = () => {
   const service = useLoaderData();
+
+  console.log(service)
+
   const { user } = useContext(AuthContext);
   const { _id, img, title, price } = service.data;
 
@@ -32,7 +35,7 @@ const CheckOut = () => {
       zip_code,
     };
 
-    fetch("https://genius-car-server008.vercel.app/orders", {
+    fetch("https://genius-car-server008-developer-mahin.vercel.app/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",

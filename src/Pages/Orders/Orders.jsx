@@ -7,7 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(`https://genius-car-server008.vercel.app/orders?email=${user?.email}`, {
+    fetch(`https://genius-car-server008-developer-mahin.vercel.app/orders?email=${user?.email}`, {
       headers: {
         authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
       },
@@ -20,9 +20,10 @@ const Orders = () => {
               console.error(err);
             });
         }
-        res.json();
+       return res.json()
       })
       .then((data) => {
+        console.log(data)
         setOrders(data.data);
       });
   }, [user?.email, userLogOut]);
@@ -32,7 +33,7 @@ const Orders = () => {
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure to delete the product");
     if (proceed) {
-      fetch(`https://genius-car-server008.vercel.app/orders/${id}`, {
+      fetch(`https://genius-car-server008-developer-mahin.vercel.app/orders/${id}`, {
         method: "DELETE",
       })
         .then((res) => res.json())
@@ -46,7 +47,7 @@ const Orders = () => {
   };
 
   const handleUpdateApproval = (id) => {
-    fetch(`https://genius-car-server008.vercel.app/orders/${id}`, {
+    fetch(`https://genius-car-server008-developer-mahin.vercel.app/orders/${id}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",

@@ -27,7 +27,7 @@ const Login = () => {
           email: user.email,
         };
 
-        fetch("https://genius-car-server008.vercel.app/jwt", {
+        fetch("https://genius-car-server008-developer-mahin.vercel.app/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -52,6 +52,21 @@ const Login = () => {
     signInWithGoogle()
       .then((result) => {
         const user = result.user;
+        const currentUser = {
+          email: user.email,
+        };
+
+        fetch("https://genius-car-server008-developer-mahin.vercel.app/jwt10", {
+          method: "POST",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(currentUser),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            localStorage.setItem("jsonToken", data.token);
+          });
       })
       .catch((err) => {
         console.error(err);
