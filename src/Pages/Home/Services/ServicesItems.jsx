@@ -5,8 +5,6 @@ import { Link } from "react-router-dom";
 const ServicesItems = ({ service }) => {
   const { _id, title, img, price } = service;
 
-  console.log(_id)
-
   return (
     <>
       <div className="card card-compact w-full bg-base-100 shadow-xl">

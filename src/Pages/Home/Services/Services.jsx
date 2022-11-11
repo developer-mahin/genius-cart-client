@@ -1,25 +1,66 @@
 import React, { useEffect, useState } from "react";
+import { useRef } from "react";
 import ServicesItems from "./ServicesItems";
 
 const Services = () => {
   const [services, setServices] = useState([]);
+  const [search, setSearch] = useState("");
+  const [isAse, setIsAse] = useState(true);
+  const searchRef = useRef();
 
   useEffect(() => {
-    fetch("https://genius-car-server008-developer-mahin.vercel.app/services")
+    fetch(
+      `http://localhost:5000/services?search=${search}&order=${
+        isAse ? "asc" : "des"
+      }`
+    )
       .then((res) => res.json())
-      .then((data) => setServices(data.data))
-  }, []);
+      .then((data) => setServices(data.data));
+  }, [isAse, search]);
 
+  const handleSearch = () => {
+    setSearch(searchRef.current.value);
+  };
 
+  
   return (
     <div className="lg:py-12 py-3 px-2">
-      <div className="text-center">
-        <p className="lg:text-2xl text-xl text-[#FF3811] font-bold">Services</p>
-        <h2 className="lg:text-5xl text-3xl font-bold my-3">Our Service Area</h2>
-        <p className="lg:w-1/2 w-full mx-auto">
-          the majority have suffered alteration in some form, by injected
-          humour, or randomised words which don't look even slightly believable.{" "}
-        </p>
+      <div>
+        <div className="text-center">
+          <p className="lg:text-2xl text-xl text-[#FF3811] font-bold">
+            Services
+          </p>
+          <h2 className="lg:text-5xl text-3xl font-bold my-3">
+            Our Service Area
+          </h2>
+          <p className="lg:w-1/2 w-full mx-auto">
+            the majority have suffered alteration in some form, by injected
+            humour, or randomised words which don't look even slightly
+            believable.{" "}
+          </p>
+        </div>
+        <div className="py-4">
+          <input
+            ref={searchRef}
+            type="text"
+            className="input-sm border-2 rounded-full"
+          />{" "}
+          <button
+            onClick={handleSearch}
+            className="bg-[#FF3811] hover:bg-black rounded-full hover:text-white py-1 px-8 font-semibold border-2 border-[#FF3811] hover:border-[black]"
+          >
+            Search
+          </button>
+        </div>
+        <div>
+          <span className="text-xl font-semibold">Price: </span>
+          <button
+            onClick={() => setIsAse(!isAse)}
+            className="btn bg-transparent text-black border hover:text-white rounded px-6"
+          >
+            {isAse ? "High to Low" : "Low to High"}
+          </button>
+        </div>
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 mt-10 gap-5">
         {services.map((service) => (
