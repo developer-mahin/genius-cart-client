@@ -1,6 +1,8 @@
-import React, { useEffect, useState } from "react";
-import { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ServicesItems from "./ServicesItems";
+
+// http://localhost:5000/
+// http://localhost:5000/
 
 const Services = () => {
   const [services, setServices] = useState([]);
@@ -10,19 +12,22 @@ const Services = () => {
 
   useEffect(() => {
     fetch(
-      `http://localhost:5000/services?search=${search}&order=${
-        isAse ? "asc" : "des"
-      }`
+      // `http://localhost:5000/?search=${search}&order=${
+      //   isAse ? "asc" : "des"
+      // }`
+      `http://localhost:5000/services`
     )
       .then((res) => res.json())
-      .then((data) => setServices(data.data));
-  }, [isAse, search]);
+      .then((data) => {
+        setServices(data);
+      });
+  }, []);
 
-  const handleSearch = () => {
-    setSearch(searchRef.current.value);
-  };
+  // isAse, search
+  // const handleSearch = () => {
+  //   setSearch(searchRef.current.value);
+  // };
 
-  
   return (
     <div className="lg:py-12 py-3 px-2">
       <div>
@@ -46,7 +51,7 @@ const Services = () => {
             className="input-sm border-2 rounded-full"
           />{" "}
           <button
-            onClick={handleSearch}
+            // onClick={handleSearch}
             className="bg-[#FF3811] hover:bg-black rounded-full hover:text-white py-1 px-8 font-semibold border-2 border-[#FF3811] hover:border-[black]"
           >
             Search
@@ -55,7 +60,7 @@ const Services = () => {
         <div>
           <span className="text-xl font-semibold">Price: </span>
           <button
-            onClick={() => setIsAse(!isAse)}
+            // onClick={() => setIsAse(!isAse)}
             className="btn bg-transparent text-black border hover:text-white rounded px-6"
           >
             {isAse ? "High to Low" : "Low to High"}

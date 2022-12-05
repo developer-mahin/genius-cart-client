@@ -1,6 +1,8 @@
 import { createBrowserRouter } from 'react-router-dom';
 import Main from '../Layout/Main';
 import CheckOut from '../Pages/CheckOut/CheckOut';
+import PaymentFail from '../Pages/CheckOut/PaymentFail';
+import PaymentSuccess from '../Pages/CheckOut/PaymentSuccess';
 import Home from '../Pages/Home/Home/Home';
 import Login from '../Pages/Login/Login';
 import Orders from '../Pages/Orders/Orders';
@@ -28,12 +30,20 @@ const router = createBrowserRouter([
                 path: "/checkout/:id",
                 element: <PrivateRouter><CheckOut></CheckOut></PrivateRouter>,
                 loader: ({ params }) => {
-                    return fetch(`https://genius-car-server008-developer-mahin.vercel.app/services/${params.id}`)
+                    return fetch(`http://localhost:5000/services/${params.id}`)
                 }
             },
             {
                 path: '/orders',
                 element: <PrivateRouter><Orders></Orders></PrivateRouter>
+            },
+            {
+                path: '/payment/success',
+                element: <PrivateRouter><PaymentSuccess></PaymentSuccess></PrivateRouter>
+            },
+            {
+                path: '/payment/fail',
+                element: <PrivateRouter><PaymentFail></PaymentFail></PrivateRouter>
             }
         ]
     }

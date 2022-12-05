@@ -7,14 +7,11 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
 
   useEffect(() => {
-    fetch(
-      `https://genius-car-server008-developer-mahin.vercel.app/orders?email=${user?.email}`,
-      {
-        headers: {
-          authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
-        },
-      }
-    )
+    fetch(`http://localhost:5000/orders?email=${user?.email}`, {
+      headers: {
+        authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
+      },
+    })
       .then((res) => {
         if (res.status === 401 || res.status === 403) {
           return userLogOut()
@@ -26,22 +23,19 @@ const Orders = () => {
         return res.json();
       })
       .then((data) => {
-        console.log(data);
-        setOrders(data.data);
+        setOrders(data);
       });
   }, [user?.email, userLogOut]);
-
-  console.log(orders);
 
   const handleDelete = (id) => {
     const proceed = window.confirm("Are you sure to delete the product");
     if (proceed) {
-      fetch(
-        `https://genius-car-server008-developer-mahin.vercel.app/orders/${id}`,
-        {
-          method: "DELETE",
-        }
-      )
+      fetch(`http://localhost:5000/orders/${id}`, {
+        method: "DELETE",
+        headers: {
+          authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
+        },
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.data.deletedCount > 0) {
@@ -53,16 +47,14 @@ const Orders = () => {
   };
 
   const handleUpdateApproval = (id) => {
-    fetch(
-      `https://genius-car-server008-developer-mahin.vercel.app/orders/${id}`,
-      {
-        method: "PATCH",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify({ status: "Approved" }),
-      }
-    )
+    fetch(`http://localhost:5000/orders/${id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
+      },
+      body: JSON.stringify({ status: "Approved" }),
+    })
       .then((res) => res.json())
       .then((data) => {
         if (data.modifiedCount > 0) {
@@ -93,7 +85,7 @@ const Orders = () => {
         </thead>
 
         <tbody>
-          {orders.map((order) => (
+          {orders?.map((order) => (
             <OrderTable
               key={order._id}
               order={order}

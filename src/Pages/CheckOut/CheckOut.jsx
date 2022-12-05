@@ -6,10 +6,8 @@ import "./checkOut.css";
 const CheckOut = () => {
   const service = useLoaderData();
 
-  console.log(service)
-
   const { user } = useContext(AuthContext);
-  const { _id, img, title, price } = service.data;
+  const { _id, img, title, price } = service;
 
   const handlePlaceOrder = (event) => {
     event.preventDefault();
@@ -17,7 +15,7 @@ const CheckOut = () => {
     const name = `${form.firstName.value} ${form.lastName.value}`;
     const email = user?.email;
     const phone = form.phone.value;
-    const message = form.message.value;
+    const address = form.address.value;
     const city = form.city.value;
     const state = form.state.value;
     const zip_code = form.zipCode.value;
@@ -26,26 +24,28 @@ const CheckOut = () => {
       product: title,
       service: _id,
       customer: name,
+      product_img: img,
       price,
       email,
       phone,
-      message,
+      address,
       city,
       state,
       zip_code,
+      currency: "BDT"
     };
 
-    fetch("https://genius-car-server008-developer-mahin.vercel.app/orders", {
+    fetch("http://localhost:5000/orders", {
       method: "POST",
       headers: {
         "content-type": "application/json",
+        authorization: `Bearer ${localStorage.getItem("jsonToken")}`,
       },
       body: JSON.stringify(order),
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log(data);
-        form.reset();
+        window.location.replace(data.url);
       })
       .catch((error) => {
         console.log(error.message);
@@ -118,12 +118,12 @@ const CheckOut = () => {
                 />
               </div>
               <div className="col-span-full">
-                <textarea
-                  id="message"
-                  name="message"
+                <input
+                  id="address"
+                  name="address"
                   required
-                  placeholder="Your Message"
-                  className="w-full h-28 rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900 py-2 px-4"
+                  placeholder="Your address"
+                  className="w-full rounded-md focus:ring focus:ring-opacity-75 focus:ring-violet-400 border-gray-700 text-gray-900 py-2 px-4"
                 />
               </div>
               <div className="col-span-full sm:col-span-2">
@@ -161,8 +161,8 @@ const CheckOut = () => {
           <div>
             <input
               type="submit"
-              className="btn bg-[#ff3811] w-full border-none text-white capitalize"
-              value="Order Confirm"
+              className="btn bg-[#ff3811] lg:w-1/2 w-full border-none text-white capitalize text-xl"
+              value="Pay"
             />
           </div>
         </form>

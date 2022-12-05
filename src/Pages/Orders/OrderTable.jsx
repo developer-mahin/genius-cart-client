@@ -9,10 +9,10 @@ const OrderTable = ({ order, handleDelete, handleUpdateApproval }) => {
   const { user } = useContext(AuthContext);
 
   useEffect(() => {
-    fetch(`https://genius-car-server008-developer-mahin.vercel.app/services/${service}`)
+    fetch(`http://localhost:5000/services/${service}`)
       .then((res) => res.json())
       .then((data) => {
-        setServiceProduct(data.data);
+        setServiceProduct(data);
       });
   }, [service]);
 

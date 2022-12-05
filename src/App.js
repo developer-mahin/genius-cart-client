@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="max-w-screen-xl	mx-auto">
 
-      {/* https://genius-car-server008-developer-mahin.vercel.app/ */}
+      {/* http://localhost:5000/ */}
 
       <RouterProvider router={router}></RouterProvider>
     </div>

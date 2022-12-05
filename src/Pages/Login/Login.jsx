@@ -27,7 +27,7 @@ const Login = () => {
           email: user.email,
         };
 
-        fetch("https://genius-car-server008-developer-mahin.vercel.app/jwt", {
+        fetch("http://localhost:5000/jwt", {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -56,7 +56,7 @@ const Login = () => {
           email: user.email,
         };
 
-        fetch("https://genius-car-server008-developer-mahin.vercel.app/jwt10", {
+        fetch("http://localhost:5000/jwt10", {
           method: "POST",
           headers: {
             "content-type": "application/json",
